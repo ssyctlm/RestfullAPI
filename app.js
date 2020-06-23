@@ -8,6 +8,9 @@ const morgan = require('morgan');  // tell Express to funnel all requests throug
 const productsRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 
+// middleware [body-parser] which is for parse incoming request which it's not eassily be formated and read by nodeJS
+// body-parser support urlencoded, body and json-data.
+const bodyParser = require('body-parser');
 
 
 // app.use to pass in middle-ware;
@@ -18,7 +21,10 @@ const ordersRoutes = require('./api/routes/orders');
 //   });
 // });
 
-app.use(morgan('dev'))
+app.use(morgan('dev'));
+// decide what to be parsed by bodyparser
+app.use(bodyParser.urlencoded({extended: false})); 
+app.use(bodyParser.json());
 
 //Routes which should handle request
 app.use('/products',productsRoutes);

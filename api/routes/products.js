@@ -9,8 +9,13 @@ router.get('/',(req,res,next)=>{
   });
 });
 router.post('/',(req,res,next)=>{
+  const product = {
+    name:req.body.name,
+    parce:req.body.price
+  }
   res.status(201).json({
-    message: `All products were listed - POST `
+    message: `All products were listed - POST `,
+    createdProduct:product
   });
 });
 
