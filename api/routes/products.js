@@ -18,6 +18,7 @@ router.get('/',(req,res,next)=>{
         productsCount: docs.length,
         products: docs.map(doc=>{
           return {
+            id:doc._id,
             name:doc.name,
             price:doc.price,
             request:{
