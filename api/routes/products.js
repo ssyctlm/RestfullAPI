@@ -7,6 +7,10 @@ const { urlencoded } = require('body-parser');
 // const { deleteOne } = require('../models/product');
 // const product = require('../models/product');
 
+//* multer
+const multer = require('multer');
+const upload = multer({dest:'uploads/'});
+
 
 
 
@@ -51,11 +55,16 @@ router.get('/',(req,res,next)=>{
 });
 
 
-router.post('/',(req,res,next)=>{
+router.post('/',upload.single('productImage'),(req,res,next)=>{
   // const product = {
   //   name:req.body.name,
-  //   parce:req.body.price
+  //   price:req.body.price
   // }
+  console.log(req.file);
+  console.log(req.file.originalname)
+
+  console.log(req.body);
+
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name:req.body.name,

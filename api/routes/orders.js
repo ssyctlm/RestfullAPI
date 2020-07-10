@@ -12,6 +12,7 @@ router.get('/',(req,res,next)=>{
   // });
   Order.find()
        .select("product quantity _id")
+       //.populate("Product") //! doesn't work, I will gigure out later
        .exec()
        .then(orders=>{
          console.log(orders);
@@ -37,9 +38,7 @@ router.get('/',(req,res,next)=>{
              message:'something goes wrong',
              error:err
           }
-
          )
-
        })
 });
 

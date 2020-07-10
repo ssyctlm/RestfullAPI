@@ -29,6 +29,7 @@ const bodyParser = require('body-parser');
 
 app.use(morgan('dev'));
 // decide what to be parsed by bodyparser
+app.use('/uploads',express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false})); 
 app.use(bodyParser.json());
 
