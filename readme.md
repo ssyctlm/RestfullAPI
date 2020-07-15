@@ -28,3 +28,6 @@ I have a plan for this pracitce:
   * 7/10/20 - `Multer` middleware installed and using it to parse formData from postman.
 
   * 7/15/20 - successfully achieve image upload functionality
+
+  * 7/15/20 - User Authorize <br>
+             - Introduce a password encrypt package  `node.bcrypt.js`

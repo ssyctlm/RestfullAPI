@@ -13,6 +13,9 @@ mongoose.connect('mongodb+srv://productAPI:productAPI@cluster0-v5nje.mongodb.net
 const productsRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 
+//import User routes
+const userRoutes = require('./api/routes/user');
+
 // middleware [body-parser] which is for parse incoming request which it's not eassily be formated and read by nodeJS
 // body-parser support urlencoded, body and json-data.
 const bodyParser = require('body-parser');
@@ -48,6 +51,7 @@ app.use((req,res,next)=>{
 //Routes which should handle request
 app.use('/products',productsRoutes);
 app.use('/orders',ordersRoutes);
+app.use('/user',userRoutes);
 
 //Handle err messages, convert them to Json.
 app.use((req,res,next)=>{
