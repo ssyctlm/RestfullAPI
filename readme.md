@@ -26,3 +26,5 @@ I have a plan for this pracitce:
   # Log:
   * 7/9/20 - Failed when I use `populate` to chain product with order. Don't know how to fix it, move on and leave it temporary. 
   * 7/10/20 - `Multer` middleware installed and using it to parse formData from postman.
+
+  * 7/15/20 - successfully achieve image upload functionality

@@ -9,13 +9,37 @@ const { urlencoded } = require('body-parser');
 
 //* multer
 const multer = require('multer');
-const upload = multer({dest:'uploads/'});
+
+const storage = multer.diskStorage({
+  destination: function(req,file,cb){
+    cb(null,'./uploads/')
+  },
+  filename:function(req,file,cb){
+    cb(null,new Date().toISOString().substring(0,10) + file.originalname)
+  }
+})
+const fileFilter = (req,file,cb)=>{
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    cb(null,true);
+  }else{
+    cb(new Error('not allowed format. only png and jpeg allowed'),false);
+  }
+};
+
+// const upload = multer({dest:'uploads/'});
+const upload = multer({
+  storage,
+  limits:{
+  fileSize:1024*1024*5
+  },
+  fileFilter:fileFilter
+});
 
 
 
 
 router.get('/',(req,res,next)=>{
-  Product.find().select('name price _id').exec()
+  Product.find().select('name price _id productImage').exec()
   .then(
     docs=>{
       const response = {
@@ -25,6 +49,7 @@ router.get('/',(req,res,next)=>{
             id:doc._id,
             name:doc.name,
             price:doc.price,
+            productImage:doc.productImage,
             request:{
               type:'GET',
               url: "http://localhost:5000/products/"+doc._id
@@ -61,14 +86,13 @@ router.post('/',upload.single('productImage'),(req,res,next)=>{
   //   price:req.body.price
   // }
   console.log(req.file);
-  console.log(req.file.originalname)
-
   console.log(req.body);
 
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name:req.body.name,
-    price:req.body.price
+    price:req.body.price,
+    productImage: req.file.path
   });
   product.save()
         .then(result=>{
@@ -107,7 +131,7 @@ router.get('/:productId',(req,res,next)=>{
   //   });
   // })
   Product.findById(id)
-        .select('name price _id')
+        .select('name price _id productImage')
         .exec()
         .then(doc=>{
           console.log("from database:" ,doc);
