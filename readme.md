@@ -31,3 +31,7 @@ I have a plan for this pracitce:
 
   * 7/15/20 - User Authorize <br>
              - Introduce a password encrypt package  `node.bcrypt.js`
+
+  * 7/18/20 - User login and token generate<br>
+            - new library [`jsonwebtoken`](https://github.com/auth0/node-jsonwebtoken) was introduced to handle token generation and signing works for us.<br>
+            - Parse the token using [JWT](https://jwt.io/)
