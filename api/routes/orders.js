@@ -5,8 +5,10 @@ const mongoose = require('mongoose');
 const Product = require('../models/product');
 const Order = require('../models/order');
 
+const checkAuth = require('../middleWare/check-auth');
 
-router.get('/',(req,res,next)=>{
+
+router.get('/',checkAuth,(req,res,next)=>{
   // res.status(200).json({
   //   message:'Orders were fetched'
   // });
@@ -43,7 +45,7 @@ router.get('/',(req,res,next)=>{
 });
 
 
-router.post('/',(req,res,next)=>{
+router.post('/',checkAuth,(req,res,next)=>{
   //dummy code
   // const order = {
   //   productId:req.body.pro.productId,
@@ -91,7 +93,7 @@ router.post('/',(req,res,next)=>{
 });
 
 
-router.get('/:orderId',(req,res,next)=>{
+router.get('/:orderId',checkAuth,(req,res,next)=>{
   const id = req.params.orderId;
   Order.findById(id)
        .select("product _id productName")
@@ -125,7 +127,7 @@ router.get('/:orderId',(req,res,next)=>{
 })
 
 
-router.delete('/:orderId',(req,res,next)=>{
+router.delete('/:orderId',checkAuth,(req,res,next)=>{
   const id = req.params.orderId;
   if(id === 'all'){
     Order.deleteMany({quantity: 1}).then(

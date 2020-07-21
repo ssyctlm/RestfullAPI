@@ -7,6 +7,9 @@ const { urlencoded } = require('body-parser');
 // const { deleteOne } = require('../models/product');
 // const product = require('../models/product');
 
+//import checkAuth
+const checkAuth = require('../middleWare/check-auth');
+
 //* multer
 const multer = require('multer');
 
@@ -80,7 +83,7 @@ router.get('/',(req,res,next)=>{
 });
 
 
-router.post('/',upload.single('productImage'),(req,res,next)=>{
+router.post('/', checkAuth, upload.single('productImage'),(req,res,next)=>{
   // const product = {
   //   name:req.body.name,
   //   price:req.body.price
@@ -175,7 +178,7 @@ router.post('/:productId',(req,res,next)=>{
   });
 });
 
-router.patch('/:productId',(req,res,next)=>{
+router.patch('/:productId',checkAuth,(req,res,next)=>{
   const id = req.params.productId;
   // if(isNaN(id)){
   //   res.status(400).json({
@@ -209,7 +212,7 @@ router.patch('/:productId',(req,res,next)=>{
   })
 });
 
-router.delete('/:productId',(req,res,next)=>{
+router.delete('/:productId',checkAuth,(req,res,next)=>{
   const id = req.params.productId;
   Product.deleteOne({_id:id}).exec()
   .then(result=>{

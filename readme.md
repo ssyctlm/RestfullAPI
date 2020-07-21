@@ -35,3 +35,5 @@ I have a plan for this pracitce:
   * 7/18/20 - User login and token generate<br>
             - new library [`jsonwebtoken`](https://github.com/auth0/node-jsonwebtoken) was introduced to handle token generation and signing works for us.<br>
             - Parse the token using [JWT](https://jwt.io/)
+
+  * 7/20/20 - write a customed middleware to protect the api data
